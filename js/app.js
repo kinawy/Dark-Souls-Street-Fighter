@@ -26,18 +26,21 @@ const play1Move = (e) => {
 }
 // function to get player2 to move
 const play2Move = (e) => {
+  
   // Switch statement for the two keys P2 will be using
   
   switch(e.code) {
     
       case "ArrowLeft":
           if(artorius.x  > 0) {
-              artorius.x -= 15;
+              artorius.x -= 50;
+              console.log("artorius is movin")
+              console.log(artorius.x)
           }
           break
       case "ArrowRight":
           if(artorius.x + artorius.width < game.width) {
-              artorius.x += 15
+              artorius.x += 50
           }
           break
   }
@@ -112,10 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
     p2Image.src = './images/Artorius.gif';
 
     pontiff = new Player1(50, 500, 400, 400);
-    artorius = new Player2(600, 600, 400, 400);
+    artorius = new Player2(600, 500, 400, 400);
     
-    pontiff.render();
-    artorius.render();
+    // pontiff.render();
+    // artorius.render();
     document.addEventListener('keydown', play1Move);
     document.addEventListener('keydown', play2Move);
 
