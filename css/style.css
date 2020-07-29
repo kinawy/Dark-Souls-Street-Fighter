@@ -2,6 +2,10 @@
   font-family: 'Press Start 2P', monospace;
 }
 
+body {
+  background-image: url('../images/knight.jpg');
+}
+
 html,body {
     margin: 0;
     padding: 0;
@@ -41,27 +45,24 @@ html,body {
   padding: 1em;
   display: none;
   grid-gap: 1em;
-  grid-template-columns: .25fr .5fr .25fr;
+  grid-template-columns: auto auto auto;
   grid-template-areas: "top-left top-left top-right"
                         "game game game";
   z-index: 1;
   }
   
-  /* #top-left, #top-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color:red
-  } */
-  
   #top-left {
     background-color: red;
     grid-area: top-left;
+    justify-content: center;
+    align-items: center;
   }
   
   #top-right {
     background-color: red;
     grid-area: top-right;
+    justify-content: center;
+    align-items: center;
     
   }
 
@@ -69,8 +70,11 @@ html,body {
     display: none;
     width: 500px;
     height: 250px;
-    border: solid red 5px;
-    background-color: hotpink;
+    border: solid black 5px;
+    border-radius: 10px;
+    background-image: url('../images/YouDied.png');
+    background-repeat: no-repeat;
+    background-size: 500px 250px;
     position: relative;
     left: 250px;
     top: -500px;
@@ -78,16 +82,15 @@ html,body {
     margin-left: 0;
     z-index: 2;
     text-align: center;
-  }
+}
 
-  #iframeAudio {
-    display: none;
-  }
-
-  /* audio {
-    display: none;
-  } */
-  
+ button { 
+  margin-top: 200px;
+  background-color: black;
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+}
+   
   
   main {
     grid-area: game;
