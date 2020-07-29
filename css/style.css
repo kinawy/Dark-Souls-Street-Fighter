@@ -1,100 +1,93 @@
 :root {
-  font-family: 'Press Start 2P', monospace;
+  font-family: "MedievalSharp", cursive;
 }
 
 body {
-  background-image: url('../images/knight.jpg');
+  background-image: url("../images/knight.jpg");
 }
 
-html,body {
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    padding-top: 1em;
-    text-align: center;
-    background-color: black;
-    background-size: cover;
-    background-repeat: space;
-  }
-  
-  h1, h2 {
-    font-family: 'Press Start 2P', monospace;
-    /* font-family: monospace; */
-    color: rgb(88, 67, 12);
-  }
-  
-  canvas {
-    background-image: url('../images/GameBack.gif');
-    background-repeat: no-repeat;
-    background-color: gray;
-    background-size: 1000px 550px;
-    width: 1000px;
-    height: 550px;
-    
-  }
-  
-  #container {
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding-top: 1em;
+  text-align: center;
+  background-color: black;
+  background-size: cover;
+  background-repeat: space;
+}
+
+h1,
+h2 {
+  color: rgb(88, 67, 12);
+}
+
+canvas {
+  background-image: url("../images/GameBack.gif");
+  background-repeat: no-repeat;
+  background-color: gray;
+  background-size: 1000px 550px;
+  width: 1000px;
+  height: 550px;
+}
+
+#container {
   position: absolute;
   left: 0;
   right: 0;
   max-width: 50em;
-  background-color: black;
+  /* background-color: black; */
   margin: 0 auto;
   padding: 1em;
   display: none;
   grid-gap: 1em;
-  grid-template-columns: auto auto auto;
-  grid-template-areas: "top-left top-left top-right"
-                        "game game game";
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "top-left top-right"
+    "game game";
   z-index: 1;
-  }
-  
-  #top-left {
-    background-color: red;
-    grid-area: top-left;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  #top-right {
-    background-color: red;
-    grid-area: top-right;
-    justify-content: center;
-    align-items: center;
-    
-  }
-
-  #gameover {
-    display: none;
-    width: 500px;
-    height: 250px;
-    border: solid black 5px;
-    border-radius: 10px;
-    background-image: url('../images/YouDied.png');
-    background-repeat: no-repeat;
-    background-size: 500px 250px;
-    position: relative;
-    left: 250px;
-    top: -500px;
-    margin-right: 0;
-    margin-left: 0;
-    z-index: 2;
-    text-align: center;
 }
 
- button { 
+#top-left {
+  background-color: transparent;
+  grid-area: top-left;
+}
+
+#top-right {
+  background-color: transparent;
+  grid-area: top-right;
+  font-size: 36px;
+  color: rgb(88, 67, 12);
+}
+
+#gameover {
+  display: none;
+  width: 500px;
+  height: 250px;
+  border: solid black 5px;
+  border-radius: 10px;
+  background-image: url("../images/YouDied.png");
+  background-repeat: no-repeat;
+  background-size: 500px 250px;
+  position: relative;
+  left: 250px;
+  top: -500px;
+  margin-right: 0;
+  margin-left: 0;
+  z-index: 2;
+  text-align: center;
+}
+
+button {
   margin-top: 200px;
   background-color: black;
   color: white;
-  font-family: 'Press Start 2P', monospace;
+  font-family: "Press Start 2P", monospace;
 }
-   
-  
-  main {
-    grid-area: game;
-  }
-  
-  
-  
+
+main {
+  grid-area: game;
+}
