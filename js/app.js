@@ -5,6 +5,8 @@ let pontiff;
 let horace;
 let p1Image;
 let p2Image;
+let menu;
+let mySound;
 let gravity = 5;
 let keyArray = [];
 // Animation object for player1
@@ -149,21 +151,43 @@ const hitDetection = () => {
 
 }
 
+// const mainMenu = () => {
+  
+//   container = document.querySelector('#container');
+//   menu = document.createElement('aside');
+//   menu.setAttribute('id', 'top-left')
+//   console.log(container, menu)
+//   container.prepend(menu)
+
+
+// }
+
+// Create function to create game over screen
+const gameOver = () => {
+  document.getElementById('gameover').style.display = 'block';
+} 
+
+
 // Detect if players are alive, if one is dead, game over
 const winFunction = () => {
   topRight = document.getElementById('top-right')
   if (player1.health === 0) {
-
+    clearInterval(runGame, animationInterval)
+    gameOver()
     topRight.innerText = 'Pontiff Sulyvahn has been banished';
-
+    
 
   }
   if (player2.health === 0) {
-
+    clearInterval(runGame, animationInterval)
+    gameOver()
     topRight.innerText = 'Horace has been banished';
 
   }
+  
 }
+
+
 
 
 // Create characters
@@ -176,6 +200,7 @@ const gamePlay = () => {
   hitDetection();
   checkForGround();
   winFunction();
+
 
 }
 
@@ -223,9 +248,12 @@ function Creator(x, y, width, height, playerCharacter, playerNumber, health) {
 // Loads Dom, has game variable, as well as sets game attributes and trying to render my characters
 document.addEventListener('DOMContentLoaded', () => {
 
+  let audio1 = document.getElementById('playme');
+  audio1.volume = .2;
+  
   // Grabs canvas
-
-  let game = document.getElementById('game');
+  
+  game = document.getElementById('game');
 
 
 
@@ -255,12 +283,67 @@ document.addEventListener('DOMContentLoaded', () => {
     keyArray[e.code] = false;
   });
 
-
-  let runGame = setInterval(gamePlay, 5);
-  let animationInterval = setInterval(playerAnimationHandler, 80);
+  
 
 
+  runGame = setInterval(gamePlay, 5);
+  animationInterval = setInterval(playerAnimationHandler, 80);
 
 
 
+
+
+})
+document.getElementById('start').addEventListener('click', () => {
+  topRight.innerText = '';
+  document.getElementById('container').style.display = 'grid';
+  document.getElementById('menu').style.display = 'none';
+  
+})
+
+document.getElementById('newmenu').addEventListener('click', () => {
+  document.getElementById('container').style.display = 'none'
+  document.getElementById('menu').style.display = 'block';
+})
+document.getElementById('restart').addEventListener('click', () => {
+  topRight.innerText = '';
+  document.getElementById('gameover').style.display = 'none';
+
+    // Grabs canvas
+
+    game = document.getElementById('game');
+
+
+
+    // Sets canvas attributes for size and type
+    game.setAttribute('height', 1000);
+    game.setAttribute('width', 1000);
+    ctx = game.getContext('2d');
+  
+    // create images for characters
+    pontiff = new Image();
+    horace = new Image();
+    // Load Spritesheets
+    pontiff.src = './images/PontiffSprite.png';
+    horace.src = './images/HoraceSprite.png';
+  
+  
+    // Create player models
+    player1 = new Creator(50, 700, 300, 300, 'Pontiff', 1, 200);
+    player2 = new Creator(600, 700, 300, 300, 'Horace', 2, 200);
+  
+  
+    // Listen for Keys tied to moveList
+    document.addEventListener('keydown', (e) => {
+      keyArray[e.code] = true;
+    });
+    document.addEventListener('keyup', (e) => {
+      keyArray[e.code] = false;
+    });
+  
+    
+  
+  
+    runGame = setInterval(gamePlay, 5);
+    animationInterval = setInterval(playerAnimationHandler, 80);
 })

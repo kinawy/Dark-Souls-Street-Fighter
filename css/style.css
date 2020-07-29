@@ -28,36 +28,65 @@ html,body {
     background-size: 1000px 550px;
     width: 1000px;
     height: 550px;
+    
   }
   
   #container {
+  position: absolute;
+  left: 0;
+  right: 0;
   max-width: 50em;
   background-color: black;
   margin: 0 auto;
   padding: 1em;
-  display: grid;
+  display: none;
   grid-gap: 1em;
   grid-template-columns: .25fr .5fr .25fr;
   grid-template-areas: "top-left top-left top-right"
                         "game game game";
+  z-index: 1;
   }
   
-  #top-left, #top-right {
+  /* #top-left, #top-right {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color:red
-  }
+  } */
   
   #top-left {
+    background-color: red;
     grid-area: top-left;
   }
   
   #top-right {
+    background-color: red;
     grid-area: top-right;
     
   }
 
+  #gameover {
+    display: none;
+    width: 500px;
+    height: 250px;
+    border: solid red 5px;
+    background-color: hotpink;
+    position: relative;
+    left: 250px;
+    top: -500px;
+    margin-right: 0;
+    margin-left: 0;
+    z-index: 2;
+    text-align: center;
+  }
+
+  #iframeAudio {
+    display: none;
+  }
+
+  /* audio {
+    display: none;
+  } */
   
   
   main {

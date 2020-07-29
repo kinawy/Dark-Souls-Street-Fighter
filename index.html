@@ -1,26 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Dark Souls Fight Club</title>
 </head>
+
 <body>
-    
 
 
-    <div id="container">
-        <aside id="top-left"><h2>Dark Souls Fight Club</h2></aside>
-        <aside id="top-right"><h2 id="movement"></h2></aside>
-        <main>
-            <canvas id="game"><!-- play it, a game --></canvas>
-        </main>
-        
+    <div id="menu">
+        <h1>Dark Souls Fight Club</h1>
+        <button id="start">Start Game</button>
+        <button id="instruct">Instructions</button>
+
+
     </div>
-    
+    <div id="container">
+        <aside id="top-left">
+            <h2>Dark Souls Fight Club</h2>
+        </aside>
+        <aside id="top-right">
+            <h2 id="movement"></h2>
+        </aside>
+
+        <main>
+            <canvas id="game">
+            </canvas>
+            <div id="gameover">
+                <h1>Game Over</h1>
+                <button id="restart">Rekindle your Ember?</button>
+                <button id="newmenu">Main Menu</button>
+            </div>
+        </main>
 
 
-<script src="js/app.js"></script>
+    </div>
+
+    <audio id="playme" autoplay loop>
+    <source src="sounds/DS3Menu.mp3"></source>
+    </audio>
+        
+          
+    <script src="js/app.js"></script>
 </body>
+
 </html>
