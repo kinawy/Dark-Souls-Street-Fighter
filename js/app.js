@@ -2,23 +2,25 @@
 let topRight;
 let ctx;
 let pontiff;
-let artorius;
+let horace;
 let p1Image;
 let p2Image;
 let gravity = 5;
 let keyArray = [];
+// Animation object for player1
 let pontAnimations = {
   column: [0, 300, 600, 900, 1200],
   idle: [0],
   walking: [0],
 }
+// Animation object for player2
 let horaceAnimations = {
   column: [0, 300, 600, 900, 1200],
   idle: [0],
   walking: [0]
 }
 
-// function to get player1 to move
+// function to provide each player with a moveset
 const playerActionHandler = () => {
 
 
@@ -37,8 +39,8 @@ const playerActionHandler = () => {
   }
 
   if (keyArray['KeyW']) {
-    if (player1.y > 0) {
-      player1.y -= 50;
+    if (player1.y > 700) {
+      player1.y -= 500;
     }
   }
 
@@ -57,25 +59,37 @@ const playerActionHandler = () => {
   }
 
   if (keyArray['ArrowUp']) {
-    if (player2.y > 0) {
-      player2.y -= 50;
+    if (player2.y > 700) {
+      player2.y -= 500;
     }
   }
 
   if (keyArray['Space']) {
-    player1.attackState == true;
-    playerAttackHandler();
-    
-    console.log(player2.health)
+    console.log(player1.attackRange)
+    if (player1.attackRange == true) {
+      player1.attackState = true;
+      playerAttackHandler();
+
+      console.log('player2.health', player2.health, player2)
+    }
+  }
+  else {
+    player1.attackState = false;
   }
 
-  if (keyArray['ControlRight']) {
-    player2.attackState == true;
-    playerAttackHandler();
-    console.log(player1.health)
+  if (keyArray['Numpad0']) {
+    if (player2.attackRange == true) {
+      player2.attackState = true;
+      playerAttackHandler();
+      console.log('player1.health', player1.health, player1)
+    }
+  }
+  else {
+    player2.attackState = false;
   }
 }
 
+// Animates the walking of each character
 const playerAnimationHandler = () => {
   if (player1.actionState == 'walking') {
     if (player1.movementStep < 4) {
@@ -98,7 +112,7 @@ const playerAnimationHandler = () => {
 const checkForGround = () => {
   if (player1.y + player1.height <= 1000) {
     player1.y += gravity;
-  } 
+  }
   if (player2.y + player2.height <= 1000) {
     player2.y += gravity;
   }
@@ -106,14 +120,16 @@ const checkForGround = () => {
 
 }
 
+// Deals damage for each player
 const playerAttackHandler = () => {
-  if (player1.attackState == true) {
+  if (player1.attackState === true) {
 
-    player2.health = player2.health - player1.damage
+    player2.health -= player1.damage
 
   }
-  if (player2.attackState = true) {
-    player1.health = player1.health - player2.damage
+  if (player2.attackState === true) {
+
+    player1.health -= player2.damage
   }
 }
 
@@ -122,11 +138,13 @@ const hitDetection = () => {
   if (player1.x + player1.width - 200 > player2.x &&
     player1.x + 200 < player2.x + player2.width
   ) {
-    player1.attackState = true;
-    player2.attackState = true;
+
+    player1.attackRange = true;
+    player2.attackRange = true;
   } else {
-    player1.attackState = false;
-    player2.attackState = false;
+
+    player1.attackRange = false;
+    player2.attackRange = false;
   }
 
 }
@@ -135,40 +153,34 @@ const hitDetection = () => {
 const winFunction = () => {
   topRight = document.getElementById('top-right')
   if (player1.health === 0) {
-    player1.alive == false;
+
     topRight.innerText = 'Pontiff Sulyvahn has been banished';
-    player1.health === 0;
+
+
   }
   if (player2.health === 0) {
-    player2.alive == false;
-    topRight.innerText = 'Artorius has been banished';
-    player2.health === 0;
+
+    topRight.innerText = 'Horace has been banished';
+
   }
-  
 }
 
 
 // Create characters
 const gamePlay = () => {
+
   ctx.clearRect(0, 0, game.width, game.height);
+  player1.render();
+  player2.render();
   playerActionHandler();
   hitDetection();
-  checkForGround()
-  
-
-  // Check if Pontiff and Artorius are alive, if so, render them
-  if (player1.alive || player2.alive) {
-    player1.render();
-    player2.render();
-  }
-
+  checkForGround();
   winFunction();
-
 
 }
 
 // Function to create player 1, not sure how to get image loaded properly
-function Player(x, y, width, height, playerCharacter, playerNumber) {
+function Creator(x, y, width, height, playerCharacter, playerNumber, health) {
   // Current Location where player lands
   this.x = x;
   this.y = y;
@@ -180,23 +192,22 @@ function Player(x, y, width, height, playerCharacter, playerNumber) {
   this.playerCharacter = playerCharacter;
   this.playerNumber = playerNumber;
   // Sets health and Damage
-  this.health = 200;
+  this.health = health;
   this.damage = 1;
   // Sets player to alive, to be changed after taking 50 damage
   this.alive = true;
-  // Set a players attack state to help with animation this.attackState =
+  // Set a players attack state to help with animation
   this.attackState = false;
+  this.attackRange = false;
   this.actionState = 'idle';
-  this.attackStep = 0;
   this.movementStep = 0;
   this.actionRow = 0;
-  this.attackRow = 0;
   this.render = function () {
     let charImage;
     let charAnimations;
 
     if (playerCharacter === 'Pontiff') { charImage = pontiff; charAnimations = pontAnimations }
-    if(playerCharacter === 'Horace') { charImage = horace; charAnimations = horaceAnimations }
+    if (playerCharacter === 'Horace') { charImage = horace; charAnimations = horaceAnimations }
     // Idle render
 
     ctx.drawImage(
@@ -232,8 +243,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // Create player models
-  player1 = new Player(50, 700, 300, 300, 'Pontiff', 1);
-  player2 = new Player(600, 700, 300, 300, 'Horace', 2);
+  player1 = new Creator(50, 700, 300, 300, 'Pontiff', 1, 200);
+  player2 = new Creator(600, 700, 300, 300, 'Horace', 2, 200);
 
 
   // Listen for Keys tied to moveList
