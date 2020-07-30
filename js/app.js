@@ -183,7 +183,7 @@ const gamePlay = () => {
 };
 
 // Function to create player 1, not sure how to get image loaded properly
-function Creator(x, y, width, height, playerCharacter, playerNumber, health) {
+function Creator(x, y, width, height, playerCharacter, playerNumber) {
   // Current Location where player lands
   this.x = x;
   this.y = y;
@@ -195,7 +195,7 @@ function Creator(x, y, width, height, playerCharacter, playerNumber, health) {
   this.playerCharacter = playerCharacter;
   this.playerNumber = playerNumber;
   // Sets health and Damage
-  this.health = health;
+  this.health = 300;
   this.damage = 1;
   // Sets player to alive, to be changed after taking 50 damage
   this.alive = true;
@@ -291,8 +291,8 @@ document.addEventListener("DOMContentLoaded", () => {
   horaceAngle.src = "./images/HoraceSprite2.png";
 
   // Create player models
-  player1 = new Creator(50, 700, 300, 300, "Pontiff", 1, 200);
-  player2 = new Creator(600, 700, 300, 300, "Horace", 2, 200);
+  player1 = new Creator(50, 700, 300, 300, "Pontiff",);
+  player2 = new Creator(600, 700, 300, 300, "Horace",);
 
   // Listen for Keys tied to moveList
   document.addEventListener("keydown", (e) => {
@@ -340,8 +340,8 @@ document.getElementById("newmenu").addEventListener("click", () => {
   horace.src = "./images/HoraceSprite.png";
 
   // Create player models
-  player1 = new Creator(50, 700, 300, 300, "Pontiff", 1, 200);
-  player2 = new Creator(600, 700, 300, 300, "Horace", 2, 200);
+  player1 = new Creator(50, 700, 300, 300, "Pontiff", );
+  player2 = new Creator(600, 700, 300, 300, "Horace", );
 
   // Listen for Keys tied to moveList
   document.addEventListener("keydown", (e) => {
@@ -378,8 +378,8 @@ document.getElementById("restart").addEventListener("click", () => {
   horace.src = "./images/HoraceSprite.png";
 
   // Create player models
-  player1 = new Creator(50, 700, 300, 300, "Pontiff", 1, 200);
-  player2 = new Creator(600, 700, 300, 300, "Horace", 2, 200);
+  player1 = new Creator(50, 700, 300, 300, "Pontiff", 1);
+  player2 = new Creator(600, 700, 300, 300, "Horace", 2);
 
   // Listen for Keys tied to moveList
   document.addEventListener("keydown", (e) => {
