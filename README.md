@@ -2,8 +2,8 @@
 Project 1 for General Assembly required me to make a game, I chose to do a Dark Souls style Street Fighter mini clone, it turned out awesome.
 
 ## Where to find
-You can find Dark Souls Street Fighter at: 
-https://kinawy.github.io/Dark-Souls-Street-Fighter/
+Play Dark Souls Street Fighter here: 
+[Dark Souls Street Fighter](https://kinawy.github.io/Dark-Souls-Street-Fighter/)
 
 ### You just need a web browser to play this game.
 
