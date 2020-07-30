@@ -81,6 +81,25 @@ canvas {
   text-align: center;
 }
 
+#instructions {
+  display: none;
+  width: 500px;
+  height: 250px;
+  border: solid black 5px;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-size: 500px 250px;
+  position: relative;
+  left: 400px;
+  top: 100px;
+  margin-right: 0;
+  margin-left: 0;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  font-size: large;
+}
+
 button {
   margin-top: 200px;
   background-color: black;

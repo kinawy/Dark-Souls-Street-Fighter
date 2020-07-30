@@ -1,25 +1,33 @@
+///  Think about adding bullet, rotation on the players images, and passing another render function to change sprite image
+
 // Global variables
 let topRight;
 let ctx;
 let pontiff;
 let horace;
-let p1Image;
-let p2Image;
 let menu;
 let mySound;
-let gravity = 5;
+let gravity = 7;
 let keyArray = [];
 // Animation object for player1
 let pontAnimations = {
   column: [0, 300, 600, 900, 1200],
   idle: [0],
   walking: [0],
+  attackRow: [300],
 };
 // Animation object for player2
 let horaceAnimations = {
   column: [0, 300, 600, 900, 1200],
   idle: [0],
   walking: [0],
+  
+};
+let horaceAngleAnimations = {
+  column: [0, 300, 600, 900, 1200],
+  idle: [0],
+  walking: [0]
+
 };
 
 // function to provide each player with a moveset
@@ -65,22 +73,20 @@ const playerActionHandler = () => {
   }
 
   if (keyArray["Space"]) {
-    console.log(player1.attackRange);
+    player1.attackRender();
     if (player1.attackRange == true) {
       player1.attackState = true;
       playerAttackHandler();
-
-      console.log("player2.health", player2.health, player2);
     }
   } else {
     player1.attackState = false;
   }
-
+  // Calls the attack function if in range, and sets attack state to true
   if (keyArray["Numpad0"]) {
+    player2.rotateFunction();
     if (player2.attackRange == true) {
       player2.attackState = true;
       playerAttackHandler();
-      console.log("player1.health", player1.health, player1);
     }
   } else {
     player2.attackState = false;
@@ -99,7 +105,7 @@ const playerAnimationHandler = () => {
       player1.movementStep = 0;
     }
   }
-
+  // Same for player 2
   if (player2.actionState == "walking") {
     if (player2.movementStep < 4) {
       player2.movementStep++;
@@ -152,7 +158,7 @@ const gameOver = () => {
   document.getElementById("gameover").style.display = "block";
 };
 
-// Detect if players are alive, if one is dead, game over
+// Detect if players are alive, if one is dead, game over menu appears and text appears saying who has lost
 const winFunction = () => {
   topRight = document.getElementById("top-right");
   if (player1.health === 0) {
@@ -167,7 +173,7 @@ const winFunction = () => {
   }
 };
 
-// Create characters
+// Create characters and call all the functions from above, also clearRect
 const gamePlay = () => {
   ctx.clearRect(0, 0, game.width, game.height);
   player1.render();
@@ -198,13 +204,16 @@ function Creator(x, y, width, height, playerCharacter, playerNumber, health) {
   // Set a players attack state to help with animation
   this.attackState = false;
   this.attackRange = false;
+  // Set actionState to idle to help with animation
   this.actionState = "idle";
   this.movementStep = 0;
+  this.color = "red";
   this.actionRow = 0;
   this.render = function () {
     let charImage;
     let charAnimations;
 
+    // Sets the image and animation object for each character
     if (playerCharacter === "Pontiff") {
       charImage = pontiff;
       charAnimations = pontAnimations;
@@ -214,14 +223,44 @@ function Creator(x, y, width, height, playerCharacter, playerNumber, health) {
       charAnimations = horaceAnimations;
     }
     // Idle render
-
+    // Draws the characters
     ctx.drawImage(
       charImage, // Character Image
       charAnimations["column"][this.movementStep], // Passes the first array, column key of pontAnimations, and the number of its movementStep, movementStep increases through the column array.
       charAnimations[this.actionState][this.actionRow], // Passes the action state key and the index of 0 to provide an idle setting.
-      300,// Size of image height and width
+      300, // Size of image height and width
       300,
-      this.x,// X and Y coordinates passed to it
+      this.x, // X and Y coordinates passed to it
+      this.y,
+      this.width,
+      this.height
+    );
+  };
+  this.attackRender = function () {
+    charImage = pontiff;
+    charAnimations = pontAnimations;
+    ctx.drawImage(
+      charImage, // Character Image
+      charAnimations["column"][this.movementStep], // Passes the first array, column key of pontAnimations, and the number of its movementStep, movementStep increases through the column array.
+      charAnimations["attackRow"][this.actionRow], // Passes the action state key of the attackRow which is set to 300 isntead of 0 to provide an attack Idle setting.
+      300, // Size of image height and width
+      300,
+      this.x, // X and Y coordinates passed to it
+      this.y,
+      this.width,
+      this.height
+    );
+  };
+  this.rotateFunction = function () {
+    charImage = horaceAngle;
+    charAnimations = horaceAngleAnimations;
+    ctx.drawImage(
+      charImage, // Character Image
+      charAnimations["column"][this.movementStep], // Passes the first array, column key of pontAnimations, and the number of its movementStep, movementStep increases through the column array.
+      charAnimations[this.actionState][this.actionRow], // Passes the action state key of the attackRow which is set to 300 isntead of 0 to provide an attack Idle setting.
+      300, // Size of image height and width
+      300,
+      this.x, // X and Y coordinates passed to it
       this.y,
       this.width,
       this.height
@@ -247,9 +286,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // create images for characters
   pontiff = new Image();
   horace = new Image();
+  horaceAngle = new Image();
   // Load Spritesheets
   pontiff.src = "./images/PontiffSprite.png";
   horace.src = "./images/HoraceSprite.png";
+  horaceAngle.src = "./images/HoraceSprite2.png"
 
   // Create player models
   player1 = new Creator(50, 700, 300, 300, "Pontiff", 1, 200);
@@ -259,15 +300,28 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", (e) => {
     keyArray[e.code] = true;
   });
+  // It moves the keys into an array and then checks for true or false on key up or down
   document.addEventListener("keyup", (e) => {
     keyArray[e.code] = false;
   });
-
+  // Set intervals for the animation handler and gameplay
   runGame = setInterval(gamePlay, 10);
   animationInterval = setInterval(playerAnimationHandler, 80);
 });
 
-const restartGameBoard = () => {
+document.getElementById("start").addEventListener("click", () => {
+  topRight.innerText = "";
+  document.getElementById("container").style.display = "grid";
+  document.getElementById("menu").style.display = "none";
+  document.getElementById("instructions").style.display = "none";
+});
+
+document.getElementById("instruct").addEventListener("click", () => {
+  document.getElementById("instructions").style.display = "block";
+});
+
+document.getElementById("newmenu").addEventListener("click", () => {
+  document.getElementById("container").style.display = "none";
   topRight.innerText = "";
   document.getElementById("gameover").style.display = "none";
 
@@ -301,19 +355,42 @@ const restartGameBoard = () => {
 
   runGame = setInterval(gamePlay, 5);
   animationInterval = setInterval(playerAnimationHandler, 80);
-}
 
-
-document.getElementById("start").addEventListener("click", () => {
-  topRight.innerText = "";
-  document.getElementById("container").style.display = "grid";
-  document.getElementById("menu").style.display = "none";
-  console.log('this went off')
-  restartGameBoard();
-});
-
-document.getElementById("newmenu").addEventListener("click", () => {
-  document.getElementById("container").style.display = "none";
   document.getElementById("menu").style.display = "block";
 });
-document.getElementById("restart").addEventListener("click", restartGameBoard);
+
+document.getElementById("restart").addEventListener("click", () => {
+  topRight.innerText = "";
+  document.getElementById("gameover").style.display = "none";
+
+  // Grabs canvas
+
+  game = document.getElementById("game");
+
+  // Sets canvas attributes for size and type
+  game.setAttribute("height", 1000);
+  game.setAttribute("width", 1000);
+  ctx = game.getContext("2d");
+
+  // create images for characters
+  pontiff = new Image();
+  horace = new Image();
+  // Load Spritesheets
+  pontiff.src = "./images/PontiffSprite.png";
+  horace.src = "./images/HoraceSprite.png";
+
+  // Create player models
+  player1 = new Creator(50, 700, 300, 300, "Pontiff", 1, 200);
+  player2 = new Creator(600, 700, 300, 300, "Horace", 2, 200);
+
+  // Listen for Keys tied to moveList
+  document.addEventListener("keydown", (e) => {
+    keyArray[e.code] = true;
+  });
+  document.addEventListener("keyup", (e) => {
+    keyArray[e.code] = false;
+  });
+
+  runGame = setInterval(gamePlay, 5);
+  animationInterval = setInterval(playerAnimationHandler, 80);
+});
