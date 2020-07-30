@@ -21,13 +21,11 @@ let horaceAnimations = {
   column: [0, 300, 600, 900, 1200],
   idle: [0],
   walking: [0],
-  
 };
 let horaceAngleAnimations = {
   column: [0, 300, 600, 900, 1200],
   idle: [0],
-  walking: [0]
-
+  walking: [0],
 };
 
 // function to provide each player with a moveset
@@ -290,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Load Spritesheets
   pontiff.src = "./images/PontiffSprite.png";
   horace.src = "./images/HoraceSprite.png";
-  horaceAngle.src = "./images/HoraceSprite2.png"
+  horaceAngle.src = "./images/HoraceSprite2.png";
 
   // Create player models
   player1 = new Creator(50, 700, 300, 300, "Pontiff", 1, 200);
@@ -353,7 +351,7 @@ document.getElementById("newmenu").addEventListener("click", () => {
     keyArray[e.code] = false;
   });
 
-  runGame = setInterval(gamePlay, 5);
+  runGame = setInterval(gamePlay, 10);
   animationInterval = setInterval(playerAnimationHandler, 80);
 
   document.getElementById("menu").style.display = "block";
@@ -391,6 +389,6 @@ document.getElementById("restart").addEventListener("click", () => {
     keyArray[e.code] = false;
   });
 
-  runGame = setInterval(gamePlay, 5);
+  runGame = setInterval(gamePlay, 10);
   animationInterval = setInterval(playerAnimationHandler, 80);
 });
