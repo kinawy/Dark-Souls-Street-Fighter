@@ -266,17 +266,8 @@ document.addEventListener("DOMContentLoaded", () => {
   runGame = setInterval(gamePlay, 10);
   animationInterval = setInterval(playerAnimationHandler, 80);
 });
-document.getElementById("start").addEventListener("click", () => {
-  topRight.innerText = "";
-  document.getElementById("container").style.display = "grid";
-  document.getElementById("menu").style.display = "none";
-});
 
-document.getElementById("newmenu").addEventListener("click", () => {
-  document.getElementById("container").style.display = "none";
-  document.getElementById("menu").style.display = "block";
-});
-document.getElementById("restart").addEventListener("click", () => {
+const restartGameBoard = () => {
   topRight.innerText = "";
   document.getElementById("gameover").style.display = "none";
 
@@ -310,4 +301,19 @@ document.getElementById("restart").addEventListener("click", () => {
 
   runGame = setInterval(gamePlay, 5);
   animationInterval = setInterval(playerAnimationHandler, 80);
+}
+
+
+document.getElementById("start").addEventListener("click", () => {
+  topRight.innerText = "";
+  document.getElementById("container").style.display = "grid";
+  document.getElementById("menu").style.display = "none";
+  console.log('this went off')
+  restartGameBoard();
 });
+
+document.getElementById("newmenu").addEventListener("click", () => {
+  document.getElementById("container").style.display = "none";
+  document.getElementById("menu").style.display = "block";
+});
+document.getElementById("restart").addEventListener("click", restartGameBoard);
