@@ -1,4 +1,4 @@
-# Dark-Souls-Street-Fighter
+# Dark-Souls-Fight-Club
 Project 1 for General Assembly required me to make a game, I chose to do a Dark Souls style Street Fighter mini clone, it turned out awesome.
 
 ## Where to find
