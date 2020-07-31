@@ -14,6 +14,7 @@ let pontAnimations = {
   column: [0, 300, 600, 900, 1200],
   idle: [0],
   walking: [0],
+  attack: [0],
   attackRow: [300],
 };
 // Animation object for player2
@@ -160,12 +161,14 @@ const gameOver = () => {
 const winFunction = () => {
   topRight = document.getElementById("top-right");
   if (player1.health === 0) {
-    clearInterval(runGame, animationInterval);
+    clearInterval(runGame);
+    clearInterval(animationInterval);
     gameOver();
     topRight.innerText = "Pontiff Sulyvahn has been banished";
   }
   if (player2.health === 0) {
-    clearInterval(runGame, animationInterval);
+    clearInterval(runGame);
+    clearInterval(animationInterval);
     gameOver();
     topRight.innerText = "Horace has been banished";
   }

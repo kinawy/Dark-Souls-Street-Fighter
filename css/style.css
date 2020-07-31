@@ -10,6 +10,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+
 }
 
 body {
@@ -90,7 +91,7 @@ canvas {
   background-repeat: no-repeat;
   background-size: 500px 250px;
   position: relative;
-  left: 400px;
+  left: 1000px;
   top: 100px;
   margin-right: 0;
   margin-left: 0;
@@ -98,6 +99,7 @@ canvas {
   text-align: center;
   color: white;
   font-size: large;
+  align-self: center;
 }
 
 button {
