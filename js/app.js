@@ -81,7 +81,7 @@ const playerActionHandler = () => {
     player1.attackState = false;
   }
   // Calls the attack function if in range, and sets attack state to true
-  if (keyArray["Numpad0"]) {
+  if (keyArray["ShiftRight"]) {
     player2.rotateFunction();
     if (player2.attackRange == true) {
       player2.attackState = true;
